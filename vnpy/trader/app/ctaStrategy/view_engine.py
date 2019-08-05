@@ -130,12 +130,13 @@ class ViewEngine:
                 first = True
                 for ti in self.time:
                     if first:
-                        # 修改进场时间,先让entryDt=ti
-                        entryDt = ti
                         # 如果进场时间初次大于等于
                         if datetime.datetime.strptime(ti, "%Y-%m-%d %H:%M:%S") >= resu.entryDt:
                             # 如果ti已经大于entryDt了，就不再更新entryDt了
                             first = False
+                        else:
+                            # 修改进场时间,先让entryDt=ti
+                            entryDt = ti
             # 出场时间与K线时间对齐
             if exitDt in self.time:
                 pass
@@ -143,12 +144,13 @@ class ViewEngine:
                 first = True
                 for ti in self.time:
                     if first:
-                        # 修改出场时间,先让exitDt=ti
-                        exitDt = ti
                         # 如果出场时间初次大于等于
                         if datetime.datetime.strptime(ti, "%Y-%m-%d %H:%M:%S") > resu.exitDt:
                             # 如果ti已经大于exitDt了，就不再更新exitDt了
                             first = False
+                        else:
+                            # 修改出场时间,先让exitDt=ti
+                            exitDt = ti
 
             entryPrice = resu.entryPrice
             entryvolume = abs(resu.volume)
